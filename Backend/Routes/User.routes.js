@@ -2,7 +2,8 @@ const express = require("express");
 const userRouter = express();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const User=require("../Models/user.model")
+const User = require("../Models/user.model");
+const Admin = require("../Models/admin.model");
 require("dotenv").config();
 
 userRouter.post("/register", async (req, res) => {
@@ -41,7 +42,8 @@ userRouter.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     // Check if the user exists
-    const user = await User.findOne({ email });
+    const user =
+      (await User.findOne({ email })) || (await Admin.findOne({ email }));
     if (!user) {
       return res.status(400).json({ message: "User not found" });
     }
@@ -56,7 +58,11 @@ userRouter.post("/login", async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY);
 
     if (user) {
-      res.status(200).json({ message: "User logged in", token });
+      if (user.email == "harshal@admin.com") {
+        res.status(200).json({type:"admin", message: "Admin logged in", token });
+      } else {
+        res.status(200).json({type:"user", message: "User logged in", token });
+      }
     } else {
       res.status(400).json({ message: "login failed" });
     }
