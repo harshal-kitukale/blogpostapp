@@ -22,7 +22,18 @@ const Blogs = () => {
       console.error("Fetch data error:", error.response.data.error);
     }
   };
-
+  const handleDeleteBlog=(id)=>{
+    axios
+    .delete(`${API_URL}/blog/blog/${id}`)
+    .then((res) => {
+      console.log(res.data);
+      // setData(res.data);
+      fetchData()
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
   return (
     <Box>
       <Heading textAlign={"center"}>Blogs</Heading>
@@ -32,6 +43,7 @@ const Blogs = () => {
             <GridItem key={index} w="100%" h="100px" bg="blue.300">
               <Text fontSize="2xl">Title-{el.title}</Text>
               <Button onClick={()=>navigate(`/blogs/${el._id}`)} color={"black.500"}>view Blog</Button>
+              <Button onClick={()=>handleDeleteBlog(el._id)} color={"black.500"}>Delete Blog</Button>
             </GridItem>
           ))}
       </Grid>

@@ -43,8 +43,7 @@ const Home = () => {
           position: "top",
           isClosable: true,
         });
-        blogData.title = "";
-        blogData.content = "";
+        setBlogData({ title: "", content: "" })
       }
     } catch (error) {
       if (error.response) {

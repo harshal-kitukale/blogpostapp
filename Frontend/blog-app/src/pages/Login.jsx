@@ -46,6 +46,7 @@ export default function Register() {
             isClosable: true,
           });
           localStorage.setItem("token", res.data.token);
+          localStorage.setItem("auth", true);
           if(res.data.type=="admin"){
             navigate("/admin");
           }else{

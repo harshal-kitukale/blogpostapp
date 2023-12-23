@@ -4,7 +4,9 @@ import { Link, Outlet } from "react-router-dom";
 
 const Layout = () => {
     const logoutUser=()=>{
-
+            localStorage.removeItem("token")
+            localStorage.removeItem("auth")
+            window.location.reload();
     }
   return (
     <Box>
