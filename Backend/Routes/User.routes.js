@@ -55,7 +55,6 @@ userRouter.post("/login", async (req, res) => {
     // Create and send a JWT token for authentication
     const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY);
 
-    // Redirect the user based on their role
     if (user) {
       res.status(200).json({ message: "User logged in", token });
     } else {
