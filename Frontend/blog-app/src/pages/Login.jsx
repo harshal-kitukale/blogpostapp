@@ -20,6 +20,7 @@ import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../components/api";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +34,7 @@ export default function Register() {
   
 
     axios
-      .post("http://localhost:8080/user/login", data)
+      .post(`${API_URL}/user/login`, data)
       .then((res) => {
         console.log(res.data);
         if (res.status === 200) {
